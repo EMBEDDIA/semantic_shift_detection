@@ -1,0 +1,6 @@
+*.npy
+*.pyc
+.idea
+runs
+embeddings*
+model*
