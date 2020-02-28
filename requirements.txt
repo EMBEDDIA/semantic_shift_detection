@@ -1,6 +1,7 @@
 torch
-pytorch_transformers
+transformers
 tensorboardX
+tensorboard
 glob2
 tqdm
 pandas

@@ -7,6 +7,7 @@ import plotly.graph_objs as go
 import numpy as np
 from scipy.stats.stats import pearsonr
 import argparse
+import os
 
 def get_shifts(input_path):
     shifts_dict = {}
@@ -33,6 +34,8 @@ def get_cos_dist(words, shifts_dict, path, years):
             year_word = w + '_' + year
             if year_word in vocab_vectors:
                 words_emb.append(vocab_vectors[year_word])
+
+        print(w)
 
         cs = cosine_similarity(words_emb[0], words_emb[1])[0][0]
         cds.append(1 - cs)
@@ -85,7 +88,9 @@ def visualize(x,y, words):
 
     data = [trace0, trace1]
     fig = go.Figure(data=data, layout=layout)
-    plotly.offline.plot(fig, filename='w2v-umap.html')
+    if not os.path.exists('visualizations'):
+        os.makedirs('visualizations')
+    plotly.offline.plot(fig, filename='visualizations/liverpool.html')
 
 
 if __name__ == "__main__":
@@ -103,7 +108,7 @@ if __name__ == "__main__":
 
     shifts_dict = get_shifts(args.shifts_path)
     words = list(shifts_dict.keys())
-    cds, shifts, words = get_cos_dist(words, shifts_dict, args.embeddings_path)
+    cds, shifts, words = get_cos_dist(words, shifts_dict, args.embeddings_path, years)
 
     #don't add text to the graph for these words, makes graph less messy
     dont_draw_list = ['millionaires', 'schedules', 'tourists', 'moaned', 'semifinals', 'desert', 'talents', 'scorpion',

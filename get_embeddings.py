@@ -1,5 +1,5 @@
 import torch
-from pytorch_pretrained_bert import BertTokenizer, BertModel
+from transformers import BertTokenizer, BertModel
 
 import nltk
 import numpy as np
@@ -44,6 +44,7 @@ def tokens_to_batches(ds, tokenizer, batch_size, max_length):
 
     print('Dataset: ', ds)
     counter = 0
+
     with open(ds, 'r', encoding='utf8') as f:
 
         for line in f:
@@ -51,7 +52,6 @@ def tokens_to_batches(ds, tokenizer, batch_size, max_length):
 
             if counter % 1000 == 0:
                 print('Num articles: ', counter)
-
 
             content = re.search("'body': (.*), 'parent_id':", line)
 
@@ -77,6 +77,7 @@ def tokens_to_batches(ds, tokenizer, batch_size, max_length):
             text = text.replace("\\ve", "'ve")
             text = text.replace("[deleted]", "")
             text = " ".join(text.split())
+
 
             sents = []
 
@@ -136,7 +137,8 @@ def get_token_embeddings(batches, model, batch_size):
 
         # Predict hidden states features for each layer
         with torch.no_grad():
-            encoded_layers, _ = model(tokens_tensor, segments_tensors)
+            model_output = model(tokens_tensor, segments_tensors)
+            encoded_layers = model_output[-1][-4:] #last four layers of the encoder
 
 
         for batch_i in range(batch_size):
@@ -144,10 +146,9 @@ def get_token_embeddings(batches, model, batch_size):
             # For each token in the sentence...
             for token_i in range(len(batch_tokens[batch_i])):
 
-                # Holds 12 layers of hidden states for each token
+                # Holds last 4 layers of hidden states for each token
                 hidden_layers = []
 
-                # For each of the 12 layers...
                 for layer_i in range(len(encoded_layers)):
                     # Lookup the vector for `token_i` in `layer_i`
                     vec = encoded_layers[layer_i][batch_i][token_i]
@@ -164,9 +165,6 @@ def get_token_embeddings(batches, model, batch_size):
 
 def average_save_and_print(vocab_vectors, save_path):
     for k, v in vocab_vectors.items():
-        #v = np.array(v)
-        #median = np.median(v, axis=0)
-        #vocab_vectors[k] = median
 
         if len(v) == 2:
             avg = v[0] / v[1]
@@ -280,7 +278,7 @@ if __name__ == '__main__':
 
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
     state_dict = torch.load(args.path_to_model)
-    model = BertModel.from_pretrained('bert-base-uncased', state_dict=state_dict)
+    model = BertModel.from_pretrained('bert-base-uncased', state_dict=state_dict, output_hidden_states=True)
 
     model.cuda()
     model.eval()
@@ -290,4 +288,7 @@ if __name__ == '__main__':
     shifts_dict = get_shifts(args.shifts_path)
 
     get_time_embeddings(embeddings_path, datasets, tokenizer, model, args.batch_size, args.max_length)
+
+    #Pearson coefficient:  (0.4680305011683137, 1.3380286367013385e-06) 84036
+
 

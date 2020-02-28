@@ -13,15 +13,14 @@ Install dependencies if needed: pip install -r requirements.txt
 
 ### To reproduce the results on the LiverpoolFC corpus published in the paper run the code in the command line using following commands: ###
 
-First fine-tune the BERT model on the corpus<br/>
-python fine-tuning.py
-
-Generate time specific representation for each word:<br/>
+Generate time specific representation for each word using the already fine-tuned model:<br/>
 python get_embeddings.py
 
 Visualize everything and calculate Pearson correlation:<br/>
 python visualize.py
 
+To fine-tune custom BERT model on the corpus<br/>
+python fine_tuning.py
 
 
 ## Contributors to the code ##
