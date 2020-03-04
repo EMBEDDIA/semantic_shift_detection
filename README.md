@@ -1,4 +1,4 @@
-# Code for experiments conducted in the paper 'Leveraging Contextual Embeddings for Detecting Diachronic Semantic Shift' published in proceeedings of LREC 2020 conference #
+# Code for experiments conducted in the paper 'Leveraging Contextual Embeddings for Detecting Diachronic Semantic Shift' published in proceedings of LREC 2020 conference #
 
 Please cite the following paper [[bib](https://gitlab.com/matej.martinc/semantic_shift_detection/-/blob/master/bibtex.js)] if you use this code:
 

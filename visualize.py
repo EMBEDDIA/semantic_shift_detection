@@ -111,12 +111,12 @@ if __name__ == "__main__":
     cds, shifts, words = get_cos_dist(words, shifts_dict, args.embeddings_path, years)
 
     #don't add text to the graph for these words, makes graph less messy
-    dont_draw_list = ['millionaires', 'schedules', 'tourists', 'moaned', 'semifinals', 'desert', 'talents', 'scorpion',
+    dont_draw_list = ['stubbornness', 'tourists', 'semifinals', 'desert', 'talents', 'scorpion',
                       'seeded', 'vomit', 'naked', 'strings', 'alternatives', 'leaks', 'bait', 'erect', 'graduate',
                       'travel', 'determine', 'explaining', 'soak', 'mouthpuiece', 'congestion', 'revisionism', 'slave',
                       'revisonist', 'emotion', 'behaviour', 'listen', 'sentence', 'voice', 'relieved', 'mouthpiece', 'astonishing',
                       'participate', 'implied', 'astonishing', 'revisionist', 'patient', 'preventing', 'accomplish', 'narrative',
-                      'listened', 'egyptian', 'clenched', 'croatian', 'leans', 'snake']
+                      'listened', 'egyptian', 'clenched', 'croatian']
 
     filtered_words = []
 
