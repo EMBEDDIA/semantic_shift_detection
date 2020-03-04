@@ -14,13 +14,6 @@ def remove_url(text, replace_token):
     regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     return re.sub(regex, replace_token, text)
 
-def remove_mentions(text, replace_token):
-    return re.sub(r'(?:@[\w_]+)', replace_token, text)
-
-
-def remove_hashtags(text, replace_token):
-    return re.sub(r"(?:\#+[\w_]+[\w\'_\-]*[\w_]+)", replace_token, text)
-
 
 def chunks(l, n):
     """Yield successive n-sized chunks from l."""
