@@ -8,7 +8,8 @@ Matej Martinc, Petra Kralj Novak and Senja Pollak. Leveraging Contextual Embeddi
 ## Installation, documentation ##
 
 Published results were produced in Python 3 programming environment on Linux Mint 18 Cinnamon operating system. Instructions for installation assume the usage of PyPI package manager.<br/>
-Clone the project from the repository with 'git clone https://gitlab.com/matej.martinc/semantic_shift_detection'<br/>
+To get the source code, train data, fine-tuned BERT model and trained embeddings, clone the project from the repository with 'git clone https://gitlab.com/matej.martinc/semantic_shift_detection'<br/>
+To only get the source code, clone the repository from github with 'git clone https://github.com/EMBEDDIA/semantic_shift_detection'<br/>
 Install dependencies if needed: pip install -r requirements.txt
 
 ### To reproduce the results on the LiverpoolFC corpus published in the paper run the code in the command line using following commands: ###
